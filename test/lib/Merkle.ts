@@ -19,9 +19,13 @@ export class MerkleTree {
     this.buildTree();
   }
 
+  /**
+   * Creates the hash of the data passed from the pair address/amount
+   * @param data the pair [address,amount] to hash
+   * @returns the result hash
+   */
   static hashData(data: (string | number)[]): string {
     // solidityPackedKeccak256 is the typescript equivalent of the solidity keccak256(abi.encodePacked(dataToPacked))
-    // Creates the hash of the data passed from the pair address/amount
     const hash = ethers.solidityPackedKeccak256(["address", "uint256"], data);
     return hash;
   }
@@ -67,7 +71,7 @@ export class MerkleTree {
   }
 
   /**
-   * Returns the root hash of the Merkle tree (The hash contained in the single node if the last layer)
+   * Returns the root hash of the Merkle tree (The hash contained in the single node of the last layer)
    * @returns the root hash
    */
   getRoot(): string {
@@ -95,7 +99,7 @@ export class MerkleTree {
         // This is the last node but the number of nodes is odd so we duplicate it
         proof.push(layer[index]);
       }
-      // We divide the index by 2 at each iteration since we create one single hash for 2 nodes from the previous layer
+      // We divide the index by 2 at each iteration since we create one single hash for 2 child nodes from the previous layer
       index = Math.floor(index / 2);
     }
     return proof;
