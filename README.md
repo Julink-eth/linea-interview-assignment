@@ -36,5 +36,5 @@ To start testing it run:
 
 ```bash
 npm i
-npm hardhat test
+npx hardhat test
 ```
